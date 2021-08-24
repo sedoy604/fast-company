@@ -8,8 +8,6 @@ const Usrs = () => {
       bootClass += "primary";
     } else if (personId.color === "secondary") {
       bootClass += "secondary";
-    } else if (personId.color === "info") {
-      bootClass += "secondary";
     } else if (personId.color === "success") {
       bootClass += "success";
     } else if (personId.color === "danger") {
