@@ -18,24 +18,6 @@ const Usrs = () => {
       bootClass += "dark";
     }
     return bootClass;
-    // personId.color === "primary"
-    //   ? (bootClass += "primary")
-    //   : console.log(bootClass);
-    // personId.color === "secondary"
-    //   ? (bootClass += "secondary")
-    //   : console.log(bootClass);
-    // personId.color === "success"
-    //   ? (bootClass += "success")
-    //   : console.log(bootClass);
-    // personId.color === "danger"
-    //   ? (bootClass += "danger")
-    //   : console.log(bootClass);
-    // personId.color === "danger"
-    //   ? (bootClass += "info")
-    //   : console.log(bootClass);
-    // personId.color === "danger"
-    //   ? (bootClass += "dark")
-    //   : console.log(bootClass);
   };
 
   const [users, setUsers] = useState(api.users.fetchAll());
@@ -67,21 +49,47 @@ const Usrs = () => {
       </tr>
     ));
   };
+  const setPhrase = () => {
+    let body = document.querySelector("body");
+    let h3 = document.createElement("h3");
+    if (users.length > 4) {
+      h3.textContent = `C вами тусанет ${users.length} человек`;
+    } else if (users.length > 1) {
+      h3.textContent = `C вами тусанет ${users.length} человека`;
+    } else if (users.length === 1) {
+      h3.textContent = `C вами тусанет ${users.length} человек`;
+    } else if (users.length === 0) {
+      h3.textContent = `Никто с вами не тусанет`;
+    }
+    return h3.textContent;
+  };
+  const classForH2 = () => {
+    let classOfH2 = "";
+    if (users.length === 0) {
+      classOfH2 = "badge bg-danger m-2 fs-4";
+    } else if (users.length > 0) {
+      classOfH2 = "badge bg-primary m-2 fs-4";
+    }
+    return classOfH2;
+  };
   return (
     <>
-      <table className="table table-success table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Имя</th>
-            <th scope="col">Качества</th>
-            <th scope="col">Профессия</th>
-            <th scope="col">Встретился, раз</th>
-            <th scope="col">Оценка</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>{renderRow(users)}</tbody>
-      </table>
+      <h2 className={classForH2()}>{setPhrase()}</h2>
+      {users.length > 0 && (
+        <table className="table table-success table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Имя</th>
+              <th scope="col">Качества</th>
+              <th scope="col">Профессия</th>
+              <th scope="col">Встретился, раз</th>
+              <th scope="col">Оценка</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>{renderRow(users)}</tbody>
+        </table>
+      )}
     </>
   );
 };
